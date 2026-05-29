@@ -1,5 +1,4 @@
 # SMART TRAFFIC SIGNAL SYSTEM
-# Improved Version
 
 import time
 
