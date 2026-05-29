@@ -1,0 +1,91 @@
+# SMART TRAFFIC SIGNAL SYSTEM
+# Improved Version
+
+import time
+
+print("===== SMART TRAFFIC SIGNAL SYSTEM =====")
+
+while True:
+
+    print("\nEnter number of vehicles on each road")
+
+    road1 = int(input("Road 1 vehicles: "))
+    road2 = int(input("Road 2 vehicles: "))
+    road3 = int(input("Road 3 vehicles: "))
+    road4 = int(input("Road 4 vehicles: "))
+
+    traffic = {
+        "Road 1": road1,
+        "Road 2": road2,
+        "Road 3": road3,
+        "Road 4": road4
+    }
+
+    # ASK EMERGENCY FIRST
+    emergency = input(
+        "\nIs there an emergency vehicle? (yes/no): "
+    ).lower()
+
+    print("\n===== SIGNAL STATUS =====")
+
+    # EMERGENCY MODE
+    if emergency == "yes":
+
+        emergency_road = input(
+            "Enter emergency road number (1/2/3/4): "
+        )
+
+        emergency_road = "Road " + emergency_road
+
+        print("\n===== EMERGENCY MODE ACTIVATED =====")
+
+        for road in traffic:
+
+            if road == emergency_road:
+                print(f"{road} --> GREEN SIGNAL for 30 seconds")
+            else:
+                print(f"{road} --> RED SIGNAL")
+
+    # NORMAL AI TRAFFIC MODE
+    else:
+
+        # Find highest traffic road
+        max_road = max(traffic, key=traffic.get)
+        max_vehicles = traffic[max_road]
+
+        # Signal timing logic
+        green_time = max_vehicles * 2
+
+        # Minimum time
+        if green_time < 10:
+            green_time = 10
+
+        # Maximum time
+        if green_time > 60:
+            green_time = 60
+
+        for road in traffic:
+
+            if road == max_road:
+                print(f"{road} --> GREEN SIGNAL for {green_time} seconds")
+            else:
+                print(f"{road} --> RED SIGNAL")
+
+        print("\nTraffic Analysis")
+        print("----------------------")
+        print(f"Highest Traffic : {max_road}")
+        print(f"Vehicles Count  : {max_vehicles}")
+        print(f"Green Time      : {green_time} seconds")
+
+    # Small countdown
+    print("\nSignal Running...")
+
+    for i in range(5, 0, -1):
+        print(f"Next cycle starts in {i} seconds")
+        time.sleep(1)
+
+    choice = input("\nDo you want to continue? (yes/no): ").lower()
+
+    if choice != "yes":
+        print("\nSystem Stopped")
+        break
